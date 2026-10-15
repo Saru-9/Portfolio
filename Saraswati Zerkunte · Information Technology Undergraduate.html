@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Saraswati Zerkunte · Information Technology Undergraduate</title>
+<meta name="description" content="Portfolio of Saraswati Zerkunte: Java, Spring Boot, MySQL, RAG and prompt engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#d9f3ef; --bg2:#f6e4ff; --bg3:#ffe3d3;
+  --ink:#10243a; --muted:#445b73;
+  --orb1:#4fd6cf; --orb2:#a58bff; --orb3:#ff9f78;
+  --glass:rgba(255,255,255,.34); --glass-strong:rgba(255,255,255,.5);
+  --edge:rgba(255,255,255,.75); --shadow:rgba(30,60,90,.18);
+  --accent:#0b7c86; --chip:rgba(255,255,255,.45);
+  --display:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Figtree','Segoe UI',system-ui,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg1:#071425; --bg2:#150f33; --bg3:#2a1220;
+    --ink:#eaf4ff; --muted:#a6bdd6;
+    --orb1:#1fa5b8; --orb2:#6a4bff; --orb3:#ff6f61;
+    --glass:rgba(255,255,255,.08); --glass-strong:rgba(255,255,255,.14);
+    --edge:rgba(255,255,255,.28); --shadow:rgba(0,0,0,.45);
+    --accent:#6ff0e6; --chip:rgba(255,255,255,.1);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg1:#071425; --bg2:#150f33; --bg3:#2a1220;
+  --ink:#eaf4ff; --muted:#a6bdd6;
+  --orb1:#1fa5b8; --orb2:#6a4bff; --orb3:#ff6f61;
+  --glass:rgba(255,255,255,.08); --glass-strong:rgba(255,255,255,.14);
+  --edge:rgba(255,255,255,.28); --shadow:rgba(0,0,0,.45);
+  --accent:#6ff0e6; --chip:rgba(255,255,255,.1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(88px + env(safe-area-inset-top,0px))}
+body{margin:0;font-family:var(--body);color:var(--ink);line-height:1.6;background:linear-gradient(135deg,var(--bg1),var(--bg2) 55%,var(--bg3));background-attachment:fixed;min-height:100vh;overflow-x:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:12px}
+
+/* ambient liquid background */
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orbs i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.75;animation:drift 22s ease-in-out infinite alternate}
+.orbs i:nth-child(1){width:46vmax;height:46vmax;background:var(--orb1);top:-14vmax;left:-10vmax}
+.orbs i:nth-child(2){width:40vmax;height:40vmax;background:var(--orb2);top:30vh;right:-14vmax;animation-delay:-8s}
+.orbs i:nth-child(3){width:34vmax;height:34vmax;background:var(--orb3);bottom:-12vmax;left:25vw;animation-delay:-14s}
+@keyframes drift{to{transform:translate(6vmax,-5vmax) scale(1.12)}}
+
+/* glass material */
+.glass{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:28px;
+  -webkit-backdrop-filter:blur(22px) saturate(190%);backdrop-filter:blur(22px) saturate(190%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.65),inset 0 -1px 0 rgba(255,255,255,.12),inset 0 0 22px rgba(255,255,255,.08),0 18px 50px -12px var(--shadow);
+  overflow:hidden}
+.glass::before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:radial-gradient(420px circle at var(--mx,20%) var(--my,0%),rgba(255,255,255,.38),transparent 55%)}
+.glass>*{position:relative}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:56px 0}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.05;letter-spacing:-.02em}
+h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:700;margin-bottom:24px}
+h3{font-size:1.25rem;font-weight:700;letter-spacing:-.01em}
+p{margin:0}
+.muted{color:var(--muted)}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:center;padding:calc(12px + env(safe-area-inset-top,0px)) 12px 0;pointer-events:none}
+.nav .glass{pointer-events:auto;border-radius:999px;display:flex;gap:4px;padding:6px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.nav a{text-decoration:none;font-weight:600;font-size:.92rem;padding:8px 16px;border-radius:999px;white-space:nowrap;transition:background .2s}
+.nav a:hover{background:var(--glass-strong)}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;position:relative;padding:120px 0 64px}
+.hero h1{font-size:clamp(3.4rem,13vw,9.5rem);font-weight:800;letter-spacing:-.045em;line-height:.9;position:relative}
+.hero h1 span{display:block}
+.lede{max-width:34em;font-size:clamp(1.05rem,2.2vw,1.3rem);margin-top:28px;color:var(--muted)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.btn{display:inline-block;text-decoration:none;font-weight:600;padding:14px 26px;border-radius:999px;border:1px solid var(--edge);background:var(--glass-strong);
+  -webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.6),0 10px 28px -10px var(--shadow);transition:transform .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--ink);color:var(--bg1);border-color:transparent}
+.hero .in{animation:rise .9s cubic-bezier(.2,.8,.2,1) both}
+.hero .in:nth-child(2){animation-delay:.12s}.hero .in:nth-child(3){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}}
+
+/* refracting lens that follows the pointer */
+.lens{position:absolute;left:0;top:0;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;pointer-events:none;z-index:3;opacity:0;transition:opacity .3s;
+  border:1px solid var(--edge);
+  -webkit-backdrop-filter:blur(1px) saturate(1.8) brightness(1.12);backdrop-filter:blur(1px) saturate(1.8) brightness(1.12);
+  backdrop-filter:url(#refract) saturate(1.8) brightness(1.12);
+  box-shadow:inset 0 3px 8px rgba(255,255,255,.7),inset 0 -8px 18px rgba(255,255,255,.18),0 14px 34px -8px var(--shadow)}
+.hero.live .lens{opacity:1}
+@media (pointer:coarse),(prefers-reduced-motion:reduce){.lens{display:none}}
+
+/* about + skills */
+.about{padding:34px;font-size:1.12rem;max-width:760px}
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:16px;padding:26px;margin:0;list-style:none}
+.tile{position:relative;aspect-ratio:1;display:grid;place-items:center;border-radius:26px;background:var(--glass-strong);border:1px solid var(--edge);cursor:default;
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.65),inset 0 -6px 14px rgba(255,255,255,.08),0 12px 26px -12px var(--shadow);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.tile svg{width:50%;height:50%;transition:transform .3s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 4px 6px rgba(0,0,0,.18))}
+.tile span{position:absolute;left:6px;right:6px;bottom:8px;text-align:center;font-size:.72rem;font-weight:600;line-height:1.15;opacity:0;transform:translateY(4px);transition:opacity .25s,transform .25s}
+.tile:hover,.tile:focus-visible{transform:translateY(-4px) scale(1.04)}
+.tile:hover svg,.tile:focus-visible svg{transform:translateY(-9px)}
+.tile:hover span,.tile:focus-visible span,.tile:focus span{opacity:1;transform:none}
+.chip{background:var(--chip);border:1px solid var(--edge);padding:5px 14px;border-radius:999px;font-size:.92rem;font-weight:500;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+
+/* timeline (experience + education are real sequences) */
+.tl{display:grid;gap:18px;position:relative;padding-left:28px}
+.tl::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background:linear-gradient(var(--orb1),var(--orb2));border-radius:2px;opacity:.8}
+.tl article{padding:26px 28px}
+.tl article::after{content:"";position:absolute;left:-28px;top:34px;width:16px;height:16px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px var(--glass-strong)}
+.tl article{overflow:visible}
+.meta{font-size:.92rem;color:var(--muted);margin:2px 0 12px}
+.tl ul,.card ul{margin:0;padding-left:1.1em}
+.tl li+li,.card li+li{margin-top:6px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{padding:28px}
+.card .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.link{font-weight:600;color:var(--accent);text-underline-offset:4px}
+
+.edu{display:grid;gap:0}
+.edu .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:20px 28px}
+.edu .row+.row{border-top:1px solid var(--edge)}
+.edu .score{font-family:var(--display);font-weight:700;font-size:1.3rem;white-space:nowrap}
+
+.contact{padding:40px 34px;text-align:center}
+.contact h2{margin-bottom:10px}
+.contact .cta{justify-content:center}
+footer{text-align:center;padding:30px 0 40px;font-size:.9rem;color:var(--muted)}
+
+@media (max-width:760px){
+  .skills{grid-template-columns:repeat(auto-fit,minmax(88px,1fr));gap:12px;padding:18px}
+  .two{grid-template-columns:1fr}
+  .about,.contact{padding:26px 22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .orbs i,.hero .in{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- SVG filter used by the refracting lens (Chromium); other browsers fall back to blur + saturation -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="refract" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<div class="orbs" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<header class="nav">
+  <nav class="glass" aria-label="Primary">
+    <a href="#top">Home</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <h1 class="in"><span>Saraswati</span><span>Zerkunte</span></h1>
+      <p class="lede in">Information Technology undergraduate in Pune, building scalable, AI-powered backend applications with Java, Spring Boot and retrieval-augmented generation.</p>
+      <div class="cta in">
+        <a class="btn primary" href="#projects">See my work</a>
+        <a class="btn" href="mailto:saraswatizerkunte@gmail.com">Email me</a>
+      </div>
+    </div>
+    <div class="lens" id="lens" aria-hidden="true"></div>
+  </section>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="glass about">
+        <p>I'm an IT engineering student with a Diploma in Computer Science and hands-on experience in Java, MySQL and Spring Boot. I built a Java Swing and JDBC parking management system, and co-authored a published research paper on AI-based object detection. I'm also skilled in prompt engineering and RAG, and I want to build backend systems that put AI to practical use.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap">
+      <h2>Skills</h2>
+      <ul class="glass skills" role="list">
+        <li class="tile" tabindex="0" aria-label="Java" title="Java"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M17 22h18v7a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8z" fill="#e76f00"/><path d="M35 24h2.5a3.5 3.5 0 0 1 0 7H34" fill="none" stroke="#e76f00" stroke-width="2.4"/><path d="M13 41h24" stroke="#5382a1" stroke-width="3" stroke-linecap="round"/><path d="M22 8c4 3-3 5 1 9M28 11c3 2-2 4 1 7" fill="none" stroke="#5382a1" stroke-width="2.4" stroke-linecap="round"/></svg><span>Java</span></li>
+        <li class="tile" tabindex="0" aria-label="Spring Boot" title="Spring Boot"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#6db33f"/><path d="M34 13C23 13 15 19 15 28c0 3 2 5 5 5 9 0 14-9 14-20z" fill="#fff"/><path d="M19 36c3-8 8-13 13-17" stroke="#6db33f" stroke-width="2" fill="none"/></svg><span>Spring Boot</span></li>
+        <li class="tile" tabindex="0" aria-label="JDBC" title="JDBC"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="17" width="15" height="14" rx="4" fill="#5382a1"/><rect x="29" y="17" width="15" height="14" rx="4" fill="#e76f00"/><path d="M19 21h10M19 27h10" stroke="#8a97a8" stroke-width="3" stroke-linecap="round"/><path d="M9 24h5M34 24h5" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg><span>JDBC</span></li>
+        <li class="tile" tabindex="0" aria-label="REST APIs" title="REST APIs"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="9" width="38" height="30" rx="8" fill="#0b7c86"/><path d="M14 20h18m0 0-5-5m5 5-5 5M34 30H16m0 0 5-5m-5 5 5 5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>REST APIs</span></li>
+        <li class="tile" tabindex="0" aria-label="MySQL" title="MySQL"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 13v22c0 3 6 5 14 5s14-2 14-5V13z" fill="#00758f"/><ellipse cx="24" cy="13" rx="14" ry="5" fill="#2aa3c0"/><path d="M10 24c0 3 6 5 14 5s14-2 14-5" stroke="#f29111" stroke-width="2.6" fill="none"/></svg><span>MySQL</span></li>
+        <li class="tile" tabindex="0" aria-label="HTML" title="HTML"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 6h32l-3 33-13 4-13-4z" fill="#e34f26"/><path d="M24 9v31l10-3 2.5-28z" fill="#ef652a"/><text x="24" y="31" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" font-family="Arial,sans-serif">5</text></svg><span>HTML</span></li>
+        <li class="tile" tabindex="0" aria-label="CSS" title="CSS"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 6h32l-3 33-13 4-13-4z" fill="#1572b6"/><path d="M24 9v31l10-3 2.5-28z" fill="#33a9dc"/><text x="24" y="31" text-anchor="middle" font-size="18" font-weight="800" fill="#fff" font-family="Arial,sans-serif">3</text></svg><span>CSS</span></li>
+        <li class="tile" tabindex="0" aria-label="Retrieval-Augmented Generation (RAG)" title="RAG"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="6" width="24" height="32" rx="4" fill="#8b7cf6"/><path d="M14 15h12M14 21h12M14 27h7" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="31" cy="31" r="7" fill="#fff" stroke="#0b7c86" stroke-width="3"/><path d="M36 36l6 6" stroke="#0b7c86" stroke-width="3.4" stroke-linecap="round"/></svg><span>RAG</span></li>
+        <li class="tile" tabindex="0" aria-label="Prompt Engineering" title="Prompt Engineering"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 10a5 5 0 0 1 5-5h24a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H21l-9 8v-8a5 5 0 0 1-5-5z" fill="#ff9f78"/><path d="M15 15l7 6-7 6" stroke="#fff" stroke-width="2.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M25 27h8" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/></svg><span>Prompt Eng.</span></li>
+        <li class="tile" tabindex="0" aria-label="Azure" title="Azure"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 6h10L15 42H4z" fill="#3cb4f0"/><path d="M30 12l14 30H18l16-6z" fill="#0078d4"/></svg><span>Azure</span></li>
+        <li class="tile" tabindex="0" aria-label="Git" title="Git"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="9" y="9" width="30" height="30" rx="4" transform="rotate(45 24 24)" fill="#f05032"/><path d="M21 18v12M21 21c0 0 5 1 10 3" stroke="#fff" stroke-width="2.2" fill="none"/><circle cx="21" cy="18" r="3" fill="#fff"/><circle cx="21" cy="30" r="3" fill="#fff"/><circle cx="31" cy="24" r="3" fill="#fff"/></svg><span>Git</span></li>
+        <li class="tile" tabindex="0" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="20" fill="#24292f"/><path d="M14 20l2-6 5 3h6l5-3 2 6c1 2 1 5 0 7-2 5-6 7-10 7s-8-2-10-7c-1-2-1-5 0-7z" fill="#fff"/><circle cx="20" cy="26" r="1.8" fill="#24292f"/><circle cx="28" cy="26" r="1.8" fill="#24292f"/></svg><span>GitHub</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="wrap">
+      <h2>Experience</h2>
+      <div class="tl">
+        <article class="glass">
+          <h3>Cloud &amp; AI Intern</h3>
+          <p class="meta">KASNET Technologies Pvt. Ltd. · Jun 2023 – Jul 2023</p>
+          <ul>
+            <li>Worked hands-on with Azure Cloud, AI workflows and machine learning model deployment using Azure services.</li>
+            <li>Used Azure Virtual Machines, Storage Accounts and Azure AI services.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <h2>Projects and research</h2>
+      <div class="two">
+        <article class="glass card">
+          <h3>Smart Vehicle Parking &amp; Slot Management System</h3>
+          <div class="chips"><span class="chip">Java Swing</span><span class="chip">JDBC</span><span class="chip">MySQL</span></div>
+          <ul>
+            <li>Desktop app to manage parking slots: admin login, slot creation, booking and slot release.</li>
+            <li>Stores and updates parking data in MySQL through JDBC, reducing manual errors and improving efficiency.</li>
+          </ul>
+          <p style="margin-top:16px"><a class="link" href="#" data-todo="Add your GitHub repo URL">View on GitHub</a></p>
+        </article>
+        <article class="glass card">
+          <h3>Published paper: Object Detection Using AI</h3>
+          <div class="chips"><span class="chip">CNN</span><span class="chip">YOLO</span><span class="chip">SSD</span></div>
+          <ul>
+            <li>Co-authored research on AI-based object detection (Jun – Sep 2023).</li>
+            <li>Explored real-time detection in agriculture, surveillance and autonomous systems.</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <h2>Education</h2>
+      <div class="glass edu">
+        <div class="row"><div><h3>B.E. in Information Technology</h3><p class="meta" style="margin:2px 0 0">Smt. Kashibai Navale College of Engineering, Vadgaon, Pune · 2024 – present</p></div><div class="score">CGPA 7.99</div></div>
+        <div class="row"><div><h3>Diploma in Computer Science</h3><p class="meta" style="margin:2px 0 0">MIT College, Kothrud, Pune · 2021 – 2024</p></div><div class="score">82.40%</div></div>
+        <div class="row"><div><h3>Secondary education</h3><p class="meta" style="margin:2px 0 0">Bright Star High School, Udgir · 2020 – 2021</p></div><div class="score">93.40%</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="glass contact">
+        <h2>Let's build something</h2>
+        <p class="muted">Open to internships and entry-level backend and AI roles.</p>
+        <div class="cta">
+          <a class="btn primary" href="mailto:saraswatizerkunte@gmail.com">saraswatizerkunte@gmail.com</a>
+          <a class="btn" href="tel:+919763250427">+91 97632 50427</a>
+          <a class="btn" href="#" data-todo="Add your LinkedIn URL">LinkedIn</a>
+          <a class="btn" href="#" data-todo="Add your GitHub profile URL">GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>Saraswati Zerkunte · Pune, Maharashtra</footer>
+
+<script>
+(function(){
+  // pointer-following highlight on every glass surface
+  document.querySelectorAll('.glass').forEach(function(el){
+    el.addEventListener('pointermove',function(e){
+      var r=el.getBoundingClientRect();
+      el.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      el.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  });
+
+  // glass lens over the hero name
+  var hero=document.getElementById('hero'),lens=document.getElementById('lens');
+  if(!hero||!lens||matchMedia('(pointer:coarse)').matches||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var tx=0,ty=0,x=0,y=0,running=false;
+  function tick(){
+    x+=(tx-x)*.16;y+=(ty-y)*.16;
+    lens.style.transform='translate('+x+'px,'+y+'px)';
+    if(Math.abs(tx-x)>.3||Math.abs(ty-y)>.3){requestAnimationFrame(tick)}else{running=false}
+  }
+  hero.addEventListener('pointermove',function(e){
+    var r=hero.getBoundingClientRect();
+    tx=e.clientX-r.left;ty=e.clientY-r.top;
+    if(!hero.classList.contains('live')){x=tx;y=ty;hero.classList.add('live')}
+    if(!running){running=true;requestAnimationFrame(tick)}
+  });
+  hero.addEventListener('pointerleave',function(){hero.classList.remove('live')});
+})();
+</script>
+</body>
+</html>
